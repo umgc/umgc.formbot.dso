@@ -8,9 +8,6 @@ BUILD_ENV_TAG=latest
 BUILD_IMG=$(BUILD_ENV_NAME):$(BUILD_ENV_TAG)
 DOCKER_IMG=$(REPO_NAME):$(VERSION)
 REMOTE_IMG:=docker.io/umgccaps/$(DOCKER_IMG)
-UUID:=$(shell cat user.uuid 2> /dev/null || (uuidgen | sed s/'-'/''/g | head -c 10 \
-		| tr A-Z a-z > user.uuid && cat user.uuid))
-
 
 # PHONY
 .PHONY: build-env start-env push clean
