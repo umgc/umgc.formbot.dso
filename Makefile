@@ -9,7 +9,7 @@ DOCKER_IMG=$(DOCKER_NAME):$(DOCKER_TAG)
 REMOTE_IMG:=docker.io/umgccaps/$(DOCKER_IMG)
 
 # PHONY
-.PHONY: build-env start-env push clean help
+.PHONY: build-env start-env push help
 
 
 ####################################################################
@@ -39,15 +39,6 @@ start-env:
 push:
 	docker tag $(DOCKER_IMG) $(REMOTE_IMG)
 	docker push $(REMOTE_IMG)
-
-
-####################################################################
-#	make clean:
-#		This cleans the user workspace
-#
-####################################################################
-clean:
-	@mvn $(MAVEN_OPTS) clean -f pom.xml
 
 
 # This prints make commands and usage
