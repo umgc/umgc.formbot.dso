@@ -11,7 +11,7 @@ pool:
   vmImage: 'ubuntu-20.04'
 
 variables:
-- group: DockerHub-Creds
+- group: Dockerhub
 - name: Host
   value: $[variables.Host]
 - name: Username
