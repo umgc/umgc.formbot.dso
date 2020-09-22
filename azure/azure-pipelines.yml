@@ -11,15 +11,7 @@ pool:
   vmImage: 'ubuntu-20.04'
 
 variables:
-- group: Dockerhub
-- name: Host
-  value: $[variables.Host]
-- name: Username
-  value: $[variables.Username]
-- name: Password
-  value: $[variables.Password]
-- name: isMain
-  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 steps:
 - task: CmdLine@2
