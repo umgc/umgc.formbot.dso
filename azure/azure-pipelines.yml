@@ -12,6 +12,7 @@ pool:
 
 variables:
   isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  group: DockerHub Creds
 
 steps:
 - task: CmdLine@2
