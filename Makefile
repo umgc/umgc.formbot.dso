@@ -3,48 +3,47 @@
 ##############################################################
 
 # Build vars
-BUILD_ENV_NAME=advance-development-factory
-BUILD_ENV_TAG=latest
-BUILD_IMG=$(BUILD_ENV_NAME):$(BUILD_ENV_TAG)
-DOCKER_IMG=$(REPO_NAME):$(VERSION)
+DOCKER_NAME=advance-development-factory
+DOCKER_TAG=latest
+DOCKER_IMG=$(DOCKER_NAME):$(DOCKER_TAG)
 REMOTE_IMG:=docker.io/umgccaps/$(DOCKER_IMG)
 
 # PHONY
-.PHONY: build-env start-env push clean
+.PHONY: build-env start-env push clean help
 
 
 ####################################################################
 #	make build-env:
-#		This builds 
+#		This builds the ADF Docker image.
 #
 ####################################################################
 build-env:
-	docker build -f ./Docker/Dockerfile -t $(BUILD_IMG) .
+	docker build -f ./Docker/Dockerfile -t $(DOCKER_IMG) .
 
 
 ####################################################################
-#	make build-env:
-#		This builds 
+#	make start-env:
+#		This starts the ADF docker image. 
 #
 ####################################################################
 start-env:
 	docker run -it -v $(PWD)/:/repo -v /var/run/docker.sock:/var/run/docker.sock \
-		-v /sys/fs/cgroup:/sys/fs/cgroup --privileged $(BUILD_IMG) bash
+		-v /sys/fs/cgroup:/sys/fs/cgroup --privileged $(DOCKER_IMG) bash
 
 
 ####################################################################
-#	make build-env:
-#		This builds 
+#	make push:
+#		This pushes the Docker image to $(REMOTE_IMG)
 #
 ####################################################################
 push:
-	docker tag $(BUILD_IMG) $(REMOTE_IMG)
+	docker tag $(DOCKER_IMG) $(REMOTE_IMG)
 	docker push $(REMOTE_IMG)
 
 
 ####################################################################
-#	make build-env:
-#		This builds 
+#	make clean:
+#		This cleans the user workspace
 #
 ####################################################################
 clean:
