@@ -18,7 +18,7 @@ REMOTE_IMG:=docker.io/umgccaps/$(DOCKER_IMG)
 #
 ####################################################################
 build-env:
-	docker build -f ./Docker/Dockerfile -t $(DOCKER_IMG) .
+	docker build -f ./docker/Dockerfile -t $(DOCKER_IMG) .
 
 
 ####################################################################
