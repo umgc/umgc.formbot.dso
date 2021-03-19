@@ -29,15 +29,15 @@ Required:
 - Make [version 3.82 or greater] – Build automation tool
 - Docker [version 19.03 or greater] – Containerization
 
-This builds the ADF Docker image:	
-~$ make build-env
+This builds the ADF Docker image:
+**~$ make build-env**
 Expected Output:
-`#	Successfully built d540a0f3160f`
-`# 	Successfully tagged advance-development-factory:latest`
+**#	Successfully built d540a0f3160f**
+**# Successfully tagged advance-development-factory:latest`**
 
 This starts the ADF docker image:
-`~$ make start-env`
+**~$ make start-env**
 You will now be in the docker container
-`[root@ba85cf5a7a50 repo]#`
+**[root@ba85cf5a7a50 repo]#**
 You can type "exit" to exit the docker container
 
