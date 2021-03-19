@@ -31,13 +31,16 @@ Required:
 
 This builds the ADF Docker image:  
 **~$ make build-env**  
+
 Expected Output:  
 **#	Successfully built d540a0f3160f**  
 **# Successfully tagged advance-development-factory:latest**
 
 This starts the ADF docker image:  
 **~$ make start-env**  
+
 You will now be in the docker container  
 **[root@ba85cf5a7a50 repo]#**  
+
 You can type "exit" to exit the docker container
 
