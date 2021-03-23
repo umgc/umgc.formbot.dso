@@ -1,5 +1,9 @@
 FROM golang
 
+# Spring 2021
+# Vincent Leung, vleung1@student.umgc.edu
+# Ivy Pham, ipham@student.umgc.edu
+
 # git, make, which, wget are pre-installed in the golang image
 
 # Install Docker repository to install from (Debian based)

@@ -1,5 +1,8 @@
 ##############################################################
-# Makefile for Advance Development Factory (ADF)
+# Makefile for Advance Development Factory (ADF) - Golang version
+# Spring 2021
+# Vincent Leung, vleung1@student.umgc.edu
+# Ivy Pham, ipham@student.umgc.edu
 ##############################################################
 
 # Build vars
@@ -34,7 +37,7 @@ start-env:
 
 ####################################################################
 #	make push:
-#		This pushes the Docker image to $(REMOTE_IMG)
+#		This pushes the Docker image to docker.io/umgccaps/advance-development-factory-formbot-dialogflow:latest
 #
 ####################################################################
 push:
@@ -50,7 +53,8 @@ help:
 	@$(info 2. GNU Make version 3.82+)
 	@$(info 3. Docker version 19.03.12+)
 	@$(info -----------------------------------------------------------------------------------------------------------)
-	@$(info 1. make build-env:    Creates a Docker image used for building application.)
-	@$(info 2. make start-env:    Creates the ADF Docker build environment)
+	@$(info 1. make build-env:    Creates a Docker image used for building applications)
+	@$(info 2. make start-env:    Runs the ADF Docker build environment)
+	@$(info 3. make push:         Pushes the Docker image to repository at docker.io)
 	@$(info -----------------------------------------------------------------------------------------------------------)
 	@cat Makefile | sed -n -e '/####/,/#####/ p' | grep -v '###' | sed -e 's/#//g' | grep -v Makefile|grep -v help

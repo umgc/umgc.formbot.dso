@@ -1,9 +1,13 @@
-# Advance Development Factory
+# Advance Development Factory - Golang version
 ---
 As part of a diverse ecosystem of applications and technologies within software development, a need has been identified that standardizes the building, testing, and deployment of an organization's application suite. The Advance Development Factory sets the standard for developers to build, test, and deploy a diverse set of applications under a common framework that mitigates client operating environment dependencies.
 
-Update:
-Extension for Golang, Spring 2021
+https://github.com/umgc/umgc.advance.development.factory
+
+UPDATED:
+Version for Golang, Spring 2021
+Vincent Leung, vleung1@student.umgc.edu
+Ivy Pham, ipham@student.umgc.edu
 
 #### Capabilities
 ---
@@ -33,8 +37,7 @@ This builds the ADF Docker image:
 **~$ make build-env**  
 
 Expected Output:  
-**#	Successfully built d540a0f3160f**  
-**# Successfully tagged advance-development-factory:latest**
+**#=> => naming to docker.io/library/advance-development-factory-formbot-dialogflow:latest**
 
 This starts the ADF Docker image:  
 **~$ make start-env**  
