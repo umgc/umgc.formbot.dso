@@ -1,9 +1,6 @@
 FROM golang
 
-# Install packages
-# need to install helm
-# need to install kubectl
-
+# git, make, which, wget are pre-installed in the golang image
 
 # Install Docker repository to install from (Debian based)
 RUN apt-get update
@@ -37,5 +34,28 @@ RUN apt-get update
 RUN apt-get install azure-cli
 
 
+# Install helm repository to install from
+RUN curl https://baltocdn.com/helm/signing.asc | apt-key add -
+RUN apt-get install apt-transport-https --yes
+RUN echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
+
+
+# Install helm 
+RUN apt-get update
+RUN apt-get install helm
+
+
+# Install kubectl repository to install from
+RUN apt-get update && apt-get install -y apt-transport-https gnupg2
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+
+
+# Install kubectl
+RUN apt-get update
+RUN apt-get install -y kubectl
+
+
+# Create and set working directory
 RUN mkdir repo
 WORKDIR /repo

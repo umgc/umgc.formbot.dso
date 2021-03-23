@@ -24,6 +24,7 @@ build-env:
 ####################################################################
 #	make start-env:
 #		This starts the ADF docker image. 
+#		(for testing purposes)
 #
 ####################################################################
 start-env:
