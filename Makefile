@@ -3,7 +3,7 @@
 ##############################################################
 
 # Build vars
-DOCKER_NAME=advance-development-factory
+DOCKER_NAME=advance-development-factory-formbot-dialogflow
 DOCKER_TAG=latest
 DOCKER_IMG=$(DOCKER_NAME):$(DOCKER_TAG)
 REMOTE_IMG:=docker.io/umgccaps/$(DOCKER_IMG)
