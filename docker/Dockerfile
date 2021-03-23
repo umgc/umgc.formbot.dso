@@ -1,34 +1,65 @@
-FROM centos:7
+FROM golang
 
-# Install Azure-CLI repo
-RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc 
-RUN sh -c 'echo -e "[azure-cli]" > /etc/yum.repos.d/azure-cli.repo'                                                && \
-    sh -c 'echo -e "name=Azure CLI" >> /etc/yum.repos.d/azure-cli.repo'                                            && \
-    sh -c 'echo -e "baseurl=https://packages.microsoft.com/yumrepos/azure-cli" >> /etc/yum.repos.d/azure-cli.repo' && \
-    sh -c 'echo -e "enabled=1 >> /etc/yum.repos.d/azure-cli.repo"'                                                 && \
-    sh -c 'echo -e "gpgcheck=1 >> /etc/yum.repos.d/azure-cli.repo"'                                                && \
-    sh -c 'echo -e "gpgkey=https://packages.microsoft.com/keys/microsoft.asc" >> /etc/yum.repos.d/azure-cli.repo' 
+# Spring 2021
+# Vincent Leung, vleung1@student.umgc.edu
+# Ivy Pham, ipham@student.umgc.edu
 
-# Install packages
-RUN yum install -y             \
-        java-11-openjdk-devel  \
-        make                   \
-        wget                   \
-        which                  \
-        git                    \
-        yum-utils              \
-        azure-cli           
+# git, make, which, wget are pre-installed in the golang image
 
-RUN  yum-config-manager --add-repo  https://download.docker.com/linux/centos/docker-ce.repo && \
-        yum install -y docker-ce docker-ce-cli containerd.io                                && \
-        yum clean all                                                                       && \
-        rm -rf /var/cache/yum
+# Install Docker repository to install from (Debian based)
+RUN apt-get update
+RUN apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+RUN echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Install maven
-RUN cd /var/tmp && \
-    wget http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz && \
-    tar xf apache-maven-3.6.3-bin.tar.gz -C /usr/lib                                                       && \
-    ln -s /usr/lib/apache-maven-3.6.3/bin/mvn /usr/bin/mvn
 
+# Install Docker engine
+RUN apt-get update
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io
+
+
+# Install Azure CLI repository to install from
+RUN apt-get update
+RUN apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
+RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+RUN AZ_REPO=$(lsb_release -cs)
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main" | tee /etc/apt/sources.list.d/azure-cli.list
+
+
+# Install Azure CLI
+RUN apt-get update
+RUN apt-get install azure-cli
+
+
+# Install helm repository to install from
+RUN curl https://baltocdn.com/helm/signing.asc | apt-key add -
+RUN apt-get install apt-transport-https --yes
+RUN echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
+
+
+# Install helm 
+RUN apt-get update
+RUN apt-get install helm
+
+
+# Install kubectl repository to install from
+RUN apt-get update && apt-get install -y apt-transport-https gnupg2
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+
+
+# Install kubectl
+RUN apt-get update
+RUN apt-get install -y kubectl
+
+
+# Create and set working directory
 RUN mkdir repo
 WORKDIR /repo
