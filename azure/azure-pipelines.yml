@@ -12,10 +12,10 @@ steps:
 #  inputs:
 #    script: 'make build-env' 
 
-#- task: CmdLine@2
-#  condition: and(succeeded(), eq(variables.isMain, true))
-#  inputs:
-#    script: 'docker login $(HOST) -u $(USERNAME) -p $(PASSWORD)'
+- task: CmdLine@2
+  condition: and(succeeded(), eq(variables.isMain, true))
+  inputs:
+    script: 'docker login $(HOST) -u $(USERNAME) -p $(PASSWORD)'
     
 #- task: CmdLine@2
 #  condition: and(succeeded(), eq(variables.isMain, true))
