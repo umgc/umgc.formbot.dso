@@ -5,36 +5,15 @@ pool:
   vmImage: 'ubuntu-20.04'
 
 variables:
-  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 steps:
-#- task: CmdLine@2
-#  inputs:
-#    script: 'make build-env' 
-
 - task: Docker@2
   inputs:
     containerRegistry: 'dockerhub-umgccaps'
     repository: 'umgccaps/advance-development-factory-formbot-dialogflow'
     command: 'build'
     Dockerfile: '**/Dockerfile'
-
-#- task: CmdLine@2
-#  condition: and(succeeded(), eq(variables.isMain, true))
-#  inputs:
-#    script: 'docker login $(HOST) -u $(USERNAME) -p $(PASSWORD)'
-    
-#- task: CmdLine@2
-#  condition: and(succeeded(), eq(variables.isMain, true))
-#  inputs:
-#    script: 'make push'
-      
-#- task: Docker@2
-#  inputs:
-#    containerRegistry: 'dockerhub-umgccaps'
-#    repository: 'umgccaps/advance-development-factory-formbot-dialogflow'
-#    command: 'buildAndPush'
-#    Dockerfile: '**/Dockerfile'
 
 - task: Docker@2
   condition: and(succeeded(), eq(variables.isMain, true))
