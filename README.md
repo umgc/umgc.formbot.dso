@@ -1,6 +1,6 @@
 # Advance Development Factory - Golang version
 ---
-As part of a diverse ecosystem of applications and technologies within software development, a need has been identified that standardizes the building, testing, and deployment of an organization's application suite. The Advance Development Factory sets the standard for developers to build, test, and deploy a diverse set of applications under a common framework that mitigates client operating environment dependencies.
+As part of a diverse ecosystem of applications and technologies within software development, a need has been identified that standardizes the building, testing, and deployment of an organization's application suite. The Advance Development Factory provides a framework for developers to build, test, and deploy applications under a common environment that mitigates needs for dependencies configuration.
 
 https://github.com/umgc/umgc.advance.development.factory
 
