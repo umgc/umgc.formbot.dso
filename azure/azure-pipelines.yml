@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-20.04'
 
 variables:
-  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
 
 steps:
 #- task: CmdLine@2
