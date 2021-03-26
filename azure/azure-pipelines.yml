@@ -12,29 +12,51 @@ steps:
 #  inputs:
 #    script: 'make build-env' 
 
-- task: CmdLine@2
-#  condition: and(succeeded(), eq(variables.isMain, true))
+- task: Docker@2
   inputs:
-    script: 'docker login $(HOST) -u $(USERNAME) -p $(PASSWORD)'
+    containerRegistry: 'dockerhub-umgccaps'
+    repository: 'umgccaps/advance-development-factory-formbot-dialogflow'
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+
+#- task: CmdLine@2
+#  condition: and(succeeded(), eq(variables.isMain, true))
+#  inputs:
+#    script: 'docker login $(HOST) -u $(USERNAME) -p $(PASSWORD)'
     
 #- task: CmdLine@2
 #  condition: and(succeeded(), eq(variables.isMain, true))
 #  inputs:
 #    script: 'make push'
       
+#- task: Docker@2
+#  inputs:
+#    containerRegistry: 'dockerhub-umgccaps'
+#    repository: 'umgccaps/advance-development-factory-formbot-dialogflow'
+#    command: 'buildAndPush'
+#    Dockerfile: '**/Dockerfile'
+
 - task: Docker@2
+  condition: and(succeeded(), eq(variables.isMain, true))
+  inputs:
+    containerRegistry: 'dockerhub-umgccaps'
+    command: 'login'
+
+- task: Docker@2
+  condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
     containerRegistry: 'dockerhub-umgccaps'
     repository: 'umgccaps/advance-development-factory-formbot-dialogflow'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    command: 'push'
 
 - task: CopyFiles@2
+  condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
     Contents: 'deployment.azure.yaml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+  condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
