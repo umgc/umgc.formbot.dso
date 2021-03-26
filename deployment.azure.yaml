@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2 
+kind: Deployment 
+metadata: 
+  name: dso-adf-deployment 
+spec: 
+  selector: 
+    matchLabels: 
+      app: dso-adf 
+  replicas: 1 # tells deployment to run pods matching the template 
+  template:
+    metadata: 
+      labels: 
+        app: dso-adf 
+    spec: 
+      containers: 
+      - name: dso-adf 
+        image: umgccaps/advance-development-factory-formbot-dialogflow:#{Build.BuildId}#
+        ports: 
+        - containerPort: 80 
