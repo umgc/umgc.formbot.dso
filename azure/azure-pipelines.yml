@@ -1,3 +1,9 @@
+##############################################################
+# Build pipeline configuration for Advance Development Factory (ADF) - Golang version
+# Spring 2021
+# Vincent Leung, vleung1@student.umgc.edu
+# Ivy Pham, ipham@student.umgc.edu
+##############################################################
 trigger:
     - master
   
@@ -8,6 +14,7 @@ variables:
   isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 steps:
+# build Docker image
 - task: Docker@2
   inputs:
     containerRegistry: 'dockerhub-umgccaps'
@@ -15,12 +22,14 @@ steps:
     command: 'build'
     Dockerfile: '**/Dockerfile'
 
+# log into Docker Hub
 - task: Docker@2
   condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
     containerRegistry: 'dockerhub-umgccaps'
     command: 'login'
 
+# push image to Docker Hub
 - task: Docker@2
   condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
@@ -28,12 +37,14 @@ steps:
     repository: 'umgccaps/advance-development-factory-formbot-dialogflow'
     command: 'push'
 
+# copy release pipeline configuration file to pass to release pipeline
 - task: CopyFiles@2
   condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
     Contents: 'deployment.azure.yaml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+# publish the copied file as artifact into drop folder to pass to release pipeline
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(), eq(variables.isMain, true))
   inputs:
