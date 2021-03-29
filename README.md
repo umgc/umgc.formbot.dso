@@ -19,16 +19,17 @@ The ADF has a few components:
 - Dockerfile
 	- Configures the container, including all the dependencies required by other students.
 	- If development teams have a dependency not covered by ADF, that dependency could be installed here using the Docker image's package manager 
-- Makefile
-	- Defines recipes for every step in the build process
-	- ADF only needs three steps:
-		- make build-env (creates the ADF Docker image)
-		- Log in to docker.io
-		- make push (Pushes the created Docker image to Docker Hub repository)
 - azure-pipelines.yml
 	- Defines the Azure build pipeline, which automates the Docker image build and push process via Azure DevOps tasks
 - deployment.azure.yaml
 	- Defines the Azure release pipeline, which automates the ADF deployment to an Azure Kubernetes cluster
+- Makefile
+	- Carryover from original version- can be used for manual execution of build and deployment
+	- Defines recipes for every step in the build/deploy process
+	- ADF only needs three steps:
+		- 'make build-env' (creates the ADF Docker image)
+		- Log in to docker.io
+		- 'make push' (pushes the created Docker image to Docker Hub repository)
 
 
 #### How to use
@@ -37,9 +38,10 @@ Required:
 - git – Source control (Note: every developer is required to use git)
 - Linux – Our operating system (MacOS will also suffice)
 - Bash [version 4.2 or greater]  – Our shell 
-- Make [version 3.82 or greater] – Build automation tool
 - Docker [version 19.03 or greater] – Containerization
 - Azure CLI (recommended)
+- Accompanied configured Azure DevOps build and release pipelines
+- Make [version 3.82 or greater] – Build tool, which can run the below:
 
 This builds the ADF Docker image:  
 **~$ make build-env**  
